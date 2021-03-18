@@ -72,7 +72,7 @@ public abstract class Device implements Runnable {
 
     }
 
-    public abstract boolean sendPacket(DataPacket pkt_Tx) ;
+    public abstract boolean sendPacket(DataPacket pkt_Tx);
 
     public abstract boolean receivePacket();
 

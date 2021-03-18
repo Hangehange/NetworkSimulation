@@ -60,10 +60,14 @@ public class EndDevice extends Device{
     @Override
     public boolean receivePacket() {
         boolean flag = false;
+        //没设备
         if(this.portList.size()==1)
-            return false;
+            return flag;
+        //自己唯一的网口上有要发数据的flag了
         if(this.portList.get(1).isToSend) {
+            //放到自己的cache里
             this.packetCache_R = portList.get(1).packetCache_T;
+            //针对不同设备的处理逻辑
             handlePacket();
             flag = true;
         }

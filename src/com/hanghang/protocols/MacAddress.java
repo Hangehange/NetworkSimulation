@@ -8,7 +8,7 @@ public class MacAddress{
 
     public MacAddress(String _macAddr){
         this.macAddr_str =_macAddr;
-        if (_macAddr=="ff-ff-ff-ff-ff-ff"){
+        if (_macAddr=="ff-ff-ff"){
             isBroadcast = true;
         }
     }

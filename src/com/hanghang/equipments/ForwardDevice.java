@@ -38,9 +38,9 @@ public class ForwardDevice extends Device {
         if(this.portList.size()==1)
             return false;
         //轮询自己各个端口有没有要发packet的
-        for(int i = 0;i<=portList.size();i++){
+        for(int i = 0;i<portList.size();i++){
             //第i个网口上有要发数据的flag了
-            if(this.portList.get(i).isToSend) {
+            if (this.portList.get(i).isToSend) {
                 //放到自己的cache里
                 this.packetCache_R = portList.get(i).packetCache_T;
                 //对于不同转发设备只需要重写handlePacket方法即可
@@ -55,9 +55,9 @@ public class ForwardDevice extends Device {
      *  设备实现转发逻辑
      * @param Data :要转发的数据包
      */
-    public boolean forward(Package Data){
+    public boolean forward(DataPacket Data){
         boolean flag = false;
-
+        sendPacket(Data);
         return flag;
     }
 

@@ -25,7 +25,7 @@ public class Router extends ForwardDevice {
     }
 
     @Override
-    public boolean forward(Package Data) {
+    public boolean forward(DataPacket Data) {
         return super.forward(Data);
     }
 }

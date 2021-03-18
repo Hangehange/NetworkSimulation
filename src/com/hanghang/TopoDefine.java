@@ -45,7 +45,7 @@ public class TopoDefine {
             e.printStackTrace();
         }
         pc1.sendPacket(new DataPacket(pc1,"\'Hello pc2!\'"));
-        pc2.sendPacket(new DataPacket(pc2,"\'Hello pc1!\'"));
+        //pc2.sendPacket(new DataPacket(pc2,"\'Hello pc1!\'"));
     }
 
     /**
@@ -66,9 +66,15 @@ public class TopoDefine {
             e.printStackTrace();
         }
 
-        //DataPacket pkt1 = new DataPacket("1.1.1.1","2.2.2.2","00-00-01","00-00-02",)
-        pc1.sendPacket(new DataPacket(pc1,"\'Hello pc2!\'"));
-        pc2.sendPacket(new DataPacket(pc2,"\'Hello pc1!\'"));
+        DataPacket pkt1 = new DataPacket(pc1,
+                new IPAddress("192.168.1.3"),
+                new MacAddress("00-00-02"),
+                80,
+                "tcp",
+                "Hello!pc2!"
+        );
+        pc1.sendPacket(pkt1);
+        //pc2.sendPacket(new DataPacket(pc2,"\'Hello pc1!\'"));
     }
 
 

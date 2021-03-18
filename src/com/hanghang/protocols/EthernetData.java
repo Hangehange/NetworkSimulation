@@ -5,6 +5,8 @@ package com.hanghang.protocols;
  *
  */
 public class EthernetData {
-    MacAddress sourceMac;
-    MacAddress targetMac;
+    public MacAddress sourceMac;
+    public MacAddress targetMac;
+
+
 }

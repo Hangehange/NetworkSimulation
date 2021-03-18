@@ -7,12 +7,16 @@ import com.hanghang.protocols.*;
  */
 public class EndDevice extends Device{
 
+    //设定默认网关
+    public IPAddress myGateway = new IPAddress("192.168.1.1");
+
     /**
      * 初始化构造一个网络设备,包括但不限于
      *
      * @param _numOfPorts :  拥有的接口个数
      * @param _localMac   :    本机的mac地址
      */
+
     public EndDevice(int _numOfPorts, MacAddress _localMac) {
         super(_numOfPorts, _localMac);
         this.NumOfPorts=2;
@@ -47,7 +51,7 @@ public class EndDevice extends Device{
         isToSend = true;
         packetCache_T = pkt_Tx;
         System.out.println(getHeadString()+":发送消息"+packetCache_T.showPacket());
-        int TTL = 2;  //发送后过TTL时间修改isToSend
+        int TTL = 1;  //发送后过TTL时间修改isToSend
         try {
             Thread.sleep(TTL);
         }catch (InterruptedException e){
@@ -67,8 +71,12 @@ public class EndDevice extends Device{
         if(this.portList.get(1).isToSend) {
             //放到自己的cache里
             this.packetCache_R = portList.get(1).packetCache_T;
-            //针对不同设备的处理逻辑
-            handlePacket();
+            //判断是不是发给自己的
+            if(packetCache_R.getMacData().targetMac.macAddr_str
+                    ==this.macAddress.macAddr_str){
+                //针对不同设备的处理逻辑
+                handlePacket();
+            }
             flag = true;
         }
         return flag;
@@ -82,13 +90,5 @@ public class EndDevice extends Device{
     @Override
     public void run() {
         super.run();
-        while(true) {
-            receivePacket();
-            try {
-                Thread.sleep(2);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
     }
 }

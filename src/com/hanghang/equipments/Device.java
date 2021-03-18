@@ -76,6 +76,9 @@ public abstract class Device implements Runnable {
 
     public abstract boolean receivePacket();
 
+    /**
+     * 消息处理的一般方法，默认打印出来packet
+     */
     public void handlePacket() {
         if(packetCache_R.showPacket()!=null){
             System.out.println(getHeadString()+":收到消息"+packetCache_R.showPacket());
@@ -85,6 +88,14 @@ public abstract class Device implements Runnable {
     @Override
     public void run() {
         System.out.println(getHeadString()+":已开机");
+        while(true) {
+            receivePacket();
+            try {
+                Thread.sleep(2);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public String getHeadString(){

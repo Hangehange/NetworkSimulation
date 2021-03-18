@@ -10,22 +10,20 @@ public class DataPacket {
 
     /**
      *  数据报的规定格式
-     * @param Sip       source  IP
      * @param Tip       target  IP
-     * @param Smac      source  mac
      * @param Tmac      target  mac
      * @param portNum   Port number
      * @param proName   Protocol name
      * @param info      payload
      */
-    public DataPacket(IPAddress Sip,IPAddress Tip,
-                      MacAddress Smac,MacAddress Tmac,
+    public DataPacket(Device dev,IPAddress Tip,
+                      MacAddress Tmac,
                       int portNum,String proName,
                       String info){
         this.ipdata.ip_target=Tip;
-        this.ipdata.ip_source=Sip;
+        this.ipdata.ip_source= dev.getIPAddress();
         this.macData.targetMac=Tmac;
-        this.macData.sourceMac=Smac;
+        this.macData.sourceMac= dev.getMacAddress();
         this.tcpData.portNumber=portNum;
         this.tcpData.protocolName=proName;
         this.payload=info;
@@ -60,9 +58,14 @@ public class DataPacket {
         message += "\n\t\ttarget ip \t= "+this.ipdata.ip_target.ipAddress;
         message += "\n\t\tpayload \t= "+this.payload;
         message +=     "\n\t\t------------------------------------";
-
-
-
         return message;
+    }
+
+    public IpData getIpdata() {
+        return ipdata;
+    }
+
+    public EthernetData getMacData() {
+        return macData;
     }
 }
